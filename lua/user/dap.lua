@@ -13,9 +13,37 @@ if not dap_install_status_ok then
 	return
 end
 
-dap_install.setup({})
-
+dap_install.setup({
+	installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
+})
 dap_install.config("python", {})
+dap_install.config("codelldb", {})
+dap.adapters.codelldb = {
+    type = 'server',
+  port = '${port}',
+  executable = {
+    -- CHANGE THIS to your path!
+    command = '/home/jose/.local/share/nvim/mason/packages/codelldb/codelldb',
+    args = {"--port", "${port}"},
+
+    -- On windows you may have to uncomment this:
+    -- detached = false,
+  }
+}
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
 -- add other configs here
 
 dapui.setup({
@@ -60,7 +88,7 @@ dapui.setup({
 	},
 })
 
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	dapui.open()
