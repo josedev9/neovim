@@ -22,6 +22,9 @@ null_ls.setup {
     formatting.stylua,
     formatting.google_java_format,
     diagnostics.flake8,
+    formatting.clang_format.with {
+      filetypes = { "cpp", "c" },
+    },
   },
   -- Auto format on save attached
     on_attach = function(client, bufnr)

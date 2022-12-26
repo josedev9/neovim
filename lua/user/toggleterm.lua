@@ -35,6 +35,8 @@ local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
 local htop = Terminal:new({ cmd = "htop", hidden = true})
 local python = Terminal:new({ cmd = "python3", hidden = true})
+local nvtop = Terminal:new({ cmd = "nvtop", hidden = true})
+
 
 function LAZY_GIT()
 	lazygit:toggle()
@@ -46,5 +48,9 @@ end
 
 function PYTHON()
 	python:toggle()
+end
+
+function NVTOP()
+	nvtop:toggle()
 end
 
