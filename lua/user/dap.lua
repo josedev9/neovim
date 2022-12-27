@@ -8,16 +8,34 @@ if not dap_ui_status_ok then
 	return
 end
 
-local dap_install_status_ok, dap_install = pcall(require, "dap-install")
-if not dap_install_status_ok then
-	return
-end
+-- local dap_install_status_ok, dap_install = pcall(require, "dap-install")
+-- if not dap_install_status_ok then
+-- 	return
+-- end
 
-dap_install.setup({
-	installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
-})
-dap_install.config("python", {})
-dap_install.config("codelldb", {})
+-- dap_install.setup({
+-- 	installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
+-- })
+-- dap_install.config("python", {})
+-- dap_install.config("codelldb", {})
+dap.adapters.python = {
+  type = 'executable';
+  command = '/home/jose/anaconda3/envs/working/bin/python';
+  args = { '-m', 'debugpy.adapter' };
+}
+dap.configurations.python = {
+  {
+    -- The first three options are required by nvim-dap
+    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+    request = 'launch';
+    name = "Launch file";
+
+    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+    program = "${file}"; -- This configuration will launch the current file if used.
+    pythonPath = dap.adapters.python.command;
+  },
+}
 dap.adapters.codelldb = {
     type = 'server',
   port = '${port}',
