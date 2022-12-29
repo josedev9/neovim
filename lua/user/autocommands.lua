@@ -58,3 +58,10 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 	end,
 })
 
+
+vim.api.nvim_create_autocmd({"BufRead,BufNewFile"}, {
+    pattern = { "*.h,*.c,*.cpp,*.py" },
+    callback = function ()
+        vim.api.nvim_set_option_value("colorcolumn", "80", {})
+    end
+})

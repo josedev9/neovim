@@ -8,6 +8,21 @@ if not dap_ui_status_ok then
 	return
 end
 
+local miniconda_dir = '/home/jose/miniconda3/envs/working/bin/python';
+local conda_dir = '/home/jose/anaconda3/envs/working/bin/python';
+function Exists()
+    local file = io.open(miniconda_dir, "r")
+    local filetwo = io.open(conda_dir, "r")
+    if file then
+        io.close(file)
+        return miniconda_dir
+    elseif filetwo then
+        io.close(filetwo)
+        return conda_dir
+    else
+        return "/usr/bin/python3"
+    end
+end
 -- local dap_install_status_ok, dap_install = pcall(require, "dap-install")
 -- if not dap_install_status_ok then
 -- 	return
@@ -20,7 +35,7 @@ end
 -- dap_install.config("codelldb", {})
 dap.adapters.python = {
   type = 'executable';
-  command = '/home/jose/anaconda3/envs/working/bin/python';
+  command = Exists();
   args = { '-m', 'debugpy.adapter' };
 }
 dap.configurations.python = {
