@@ -85,3 +85,8 @@ keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 keymap("n", "<leader>B", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", opts)
 -- Lsp
 keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
+
+-- Commands for custom functions
+keymap("n", "<leader>tn", "<cmd>lua NVTOP()<cr>", opts)
+keymap("n", "<leader>th", "<cmd>lua HTOP()<cr>", opts)
+keymap("n", "<leader>tp", "<cmd>lua PYTHON()<cr>", opts)
