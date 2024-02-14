@@ -90,3 +90,11 @@ keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opt
 keymap("n", "<leader>tn", "<cmd>lua NVTOP()<cr>", opts)
 keymap("n", "<leader>th", "<cmd>lua HTOP()<cr>", opts)
 keymap("n", "<leader>tp", "<cmd>lua PYTHON()<cr>", opts)
+
+-- Commands for Trouble
+keymap("n", "<leader>xx", function() require("trouble").toggle() end)
+keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+keymap("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+keymap("n", "gR", function() require("trouble").toggle("lsp_references") end)
