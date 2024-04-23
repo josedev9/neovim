@@ -8,8 +8,30 @@ if not dap_ui_status_ok then
 	return
 end
 
-local miniconda_dir = '/home/jose/miniconda3/envs/working/bin/python';
-local conda_dir = '/home/jose/anaconda3/envs/working/bin/python';
+function Get_current_username()
+  local handle = io.popen("whoami")
+    if handle then
+        local result = handle:read("*a")
+        local success, reason, code = handle:close()
+        if success then
+            -- Strip trailing newline character
+            return result and result:match("^%s*(.-)%s*$")
+        else
+            -- Handle error in closing the handle
+            print("Error closing handle:", reason, code)
+        end
+    else
+        -- Handle error in opening the handle
+        print("Error opening handle")
+    end
+    return nil
+end
+
+
+local username = Get_current_username()
+
+local miniconda_dir = string.format('/home/%s/miniconda3/envs/working/bin/python', username);
+local conda_dir = string.format('/home/joser/anaconda3/envs/working/bin/python', username);
 function Exists()
     local file = io.open(miniconda_dir, "r")
     local filetwo = io.open(conda_dir, "r")
