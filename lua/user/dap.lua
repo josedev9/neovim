@@ -78,7 +78,7 @@ dap.adapters.codelldb = {
   port = '${port}',
   executable = {
     -- CHANGE THIS to your path!
-    command = '/home/jose/.local/share/nvim/mason/packages/codelldb/codelldb',
+    command = string.format('/home/%s/.local/share/nvim/mason/packages/codelldb/codelldb', username),
     args = {"--port", "${port}"},
 
     -- On windows you may have to uncomment this:
